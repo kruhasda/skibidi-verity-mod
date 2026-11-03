@@ -25,12 +25,9 @@ jobs:
       - name: Prepare and Build Mod
         run: |
           BUILD_FILE=$(find . -name "build.gradle" | head -n 1)
-          if [ -z "$BUILD_FILE" ]; then
-            echo "ERROR: build.gradle not found in repository!"
-            exit 1
-          fi
           cd "$(dirname "$BUILD_FILE")"
           sed -i 's/FabricEntityTypeBuilder.create/FabricEntityTypeBuilder.<SkibidiVerityEntity>create/g' src/main/java/com/example/skibidiverity/SkibidiVerityMod.java
+          sed -i 's/import com.example.skibidiverity.SkibidiVerityMod;/import com.example.skibidiverity.SkibidiVerityMod;\nimport com.example.skibidiverity.SkibidiVerityModClient;/g' src/main/java/com/example/skibidiverity/client/SkibidiVerityRenderer.java
           gradle build --no-daemon
 
       - name: Upload compiled Mod JAR
