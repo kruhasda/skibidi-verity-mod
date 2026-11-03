@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "skibidiverity",
+  "version": "${version}",
+  "name": "Skibidi Verity Mod",
+  "description": "Враждебные Скибиди-туалеты с головой Верити, из которых выпадает алмазный меч на Остроту 9999!",
+  "authors": [
+    "VerityFan"
+  ],
+  "icon": "assets/skibidiverity/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.example.skibidiverity.SkibidiVerityMod"
+    ],
+    "client": [
+      "com.example.skibidiverity.SkibidiVerityModClient"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.14.21",
+    "minecraft": "~1.20.1",
+    "java": ">=17",
+    "fabric-api": "*"
+  }
+}
