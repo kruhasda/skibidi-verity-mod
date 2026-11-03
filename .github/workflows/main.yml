@@ -17,14 +17,24 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Setup Gradle
+      - name: Setup Gradle 8.8
         uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: '8.8'
 
-      - name: Build with Gradle
-        run: gradle build
+      - name: Prepare and Build Mod
+        run: |
+          BUILD_FILE=$(find . -name "build.gradle" | head -n 1)
+          if [ -z "$BUILD_FILE" ]; then
+            echo "ERROR: build.gradle not found in repository!"
+            exit 1
+          fi
+          cd "$(dirname "$BUILD_FILE")"
+          sed -i 's/FabricEntityTypeBuilder.create/FabricEntityTypeBuilder.<SkibidiVerityEntity>create/g' src/main/java/com/example/skibidiverity/SkibidiVerityMod.java
+          gradle build --no-daemon
 
       - name: Upload compiled Mod JAR
         uses: actions/upload-artifact@v4
         with:
           name: skibidi-verity-mod-1.20.1
-          path: build/libs/*.jar
+          path: '**/build/libs/*.jar'
